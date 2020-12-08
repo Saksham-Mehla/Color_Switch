@@ -17,7 +17,7 @@ public class ColorSwitch extends Application {
 		try {
 			primaryStage.setTitle("Color Switch");
 			primaryStage.setResizable(false);
-			Scene currScene = pauseMenu();
+			Scene currScene = gameOver();
 			primaryStage.setScene(currScene);
 			primaryStage.show();
 		} catch(Exception e) {
@@ -37,7 +37,9 @@ public class ColorSwitch extends Application {
 		AnchorPane root = FXMLLoader.load(getClass().getResource("PauseMenu.fxml"));
 		root.setId("pause");
 		Scene scene = new Scene(root, 600, 400);
+		scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
 		BackGround bg = new BackGround(Color.BLACK); 
+
 		root.setBackground(bg.getBg());
 		return scene;
 	}
