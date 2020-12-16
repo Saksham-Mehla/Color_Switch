@@ -25,9 +25,34 @@
             <Font size="30.0" />
          </font>
       </Text>
-      <ImageView fx:id="pause" fitHeight="75.0" fitWidth="125.0" layoutX="1141.0" layoutY="12.0" onMouseClicked="#PauseButton" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="pause" fitHeight="75.0" fitWidth="125.0" layoutX="1176.0" layoutY="22.0" onMouseClicked="#PauseButton" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@icon.png" />
+            <Image url="@PauseButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ResumeButton" fitHeight="150.0" fitWidth="200.0" layoutX="240.0" layoutY="285.0" onMouseClicked="#Resume" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@ResumeButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="SaveButton" fitHeight="150.0" fitWidth="200.0" layoutX="540.0" layoutY="285.0" onMouseClicked="#save" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@SaveButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ExitButton" fitHeight="150.0" fitWidth="200.0" layoutX="825.0" layoutY="285.0" onMouseClicked="#exit" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@ResetButton.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="MuteButton" fitHeight="150.0" fitWidth="200.0" layoutX="1116.0" layoutY="556.0" onMouseClicked="#Mute" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Speaker.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="UnmuteButton" fitHeight="150.0" fitWidth="200.0" layoutX="1116.0" layoutY="556.0" onMouseClicked="#unmute" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@SpeakerOff.png" />
          </image>
       </ImageView>
    </children>

@@ -21,7 +21,7 @@ public class Cross extends Obstacle{
 	private Line l3;
 	private Line l4;
 	private boolean movedOffScreen;
-	public Cross(AnchorPane root, int y) {
+	public Cross(AnchorPane root, double y) {
 		super(root);
 		pos = new Position(600, y);
 		rotate1 = new RotateTransition();

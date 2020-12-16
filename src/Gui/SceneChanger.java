@@ -21,14 +21,18 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-import application.BackGround;
+import GameObjects.State;
+import Gui.Controller.Classic;
 
 public class SceneChanger {
     private static SceneChanger instance = new SceneChanger();
     Scene scene = null;
     Stage stage = null;
     Parent root = null;
-
+    
+//    public SceneChanger() {
+//		
+//	}
     public static SceneChanger getInstance() {
         return instance;
     }
@@ -38,6 +42,7 @@ public class SceneChanger {
         scene = new Scene(root, 1280, 720);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
+//        Classic classic = FXMLLoader.<Classic>getController();
         stage.show();
     }
     public void getHomeMenu(Event event) throws IOException {
@@ -61,14 +66,14 @@ public class SceneChanger {
         stage.setScene(scene);
         stage.show();
     }
-    public void getonExit(Event event) throws Exception{
+    public void getonExit(ActionEvent event) throws Exception{
 		root = FXMLLoader.load(getClass().getResource("FxmlFiles/OnExit.fxml"));
 		Scene scene = new Scene(root, 600, 400);
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
 	}
-    public void getGameOver(Event event) throws Exception{
+    public void getGameOver(ActionEvent event) throws Exception{
 		root = FXMLLoader.load(getClass().getResource("FxmlFiles/GameOver.fxml"));
 		Scene scene = new Scene(root, 600, 400);
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();

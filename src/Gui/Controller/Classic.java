@@ -1,13 +1,15 @@
 package Gui.Controller;
 
 import java.io.IOException;
-
+import java.util.ArrayList;
 import GameObjects.Ball;
 import GameObjects.CircleObstacle;
 import GameObjects.Cross;
 import GameObjects.Dash;
 import GameObjects.Obstacle;
 import GameObjects.Star;
+import GameObjects.State;
+import Interfaces.GameObject;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
@@ -34,11 +36,16 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Classic{
+public class Classic {
 	private Controller controller = Controller.getInstance();
+//	public static State currState = null;
     @FXML private Text StarText;
     @FXML private Text ScoreText;
     @FXML private AnchorPane pane;
+    public ArrayList<GameObject> objects = new ArrayList<>();
+    public int currY = 300;
+    public int currStarY = 250;
+
     private Obstacle o1;
 	private Obstacle o2;
 	private Obstacle o3;
@@ -47,108 +54,255 @@ public class Classic{
 	private int H = 720;
 	private int W = 1280;
 	double velocityY = 0;
+	int stars;
 	TranslateTransition t1 = new TranslateTransition();
 	TranslateTransition t2= new TranslateTransition();
 	TranslateTransition t3 = new TranslateTransition();
 	TranslateTransition ts = new TranslateTransition();
+	AnimationTimer timer1;
+	Timeline timeline1;
+	Timeline timeline2;
+	Timeline timeline3;
 	@FXML private ImageView pause;
-	
 	@FXML
-	private void PauseButton(Event event) {
-		try {
-			controller.sceneChanger.getPauseMenu(event);
-		} catch(Exception e) {
+    private ImageView ExitButton;
+    @FXML
+    private ImageView UnmuteButton;
+    @FXML
+    private ImageView MuteButton;
+    @FXML
+    private ImageView SaveButton;
+    @FXML
+    private ImageView ResumeButton;
+    @FXML
+    void save(MouseEvent event) throws IOException {
+    	ArrayList<Double> obstacleY = new ArrayList<Double>();
+    	for(GameObject i: objects) {
+    		obstacleY.add(i.getLocationY());
+    	}
+    	double ballY = ball.getCenterY();
+    	double starY = s.getLocationY();
+    	int score = stars;
+//    	Color ballColor = ball.getColor();
+    	GameObjects.State state = new GameObjects.State(obstacleY, starY, ballY, score);
+    	state.addState();
+    	state.serialize();
+    	controller.sceneChanger.getHomeMenu(event);
+    }
+    @FXML
+    void exit(MouseEvent event) {
+    	try {
+			controller.sceneChanger.getHomeMenu(event);
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-     
+    }
+    @FXML
+    void Mute(ActionEvent event) {
+
+    }
+    @FXML
+    void unmute(ActionEvent event) {
+    	
+    }
+	
     @FXML
     public void initialize() {
     	StarText.setVisible(true);
+    	MuteButton.setVisible(false);
+    	UnmuteButton.setVisible(false);
+    	ResumeButton.setVisible(false);
+    	SaveButton.setVisible(false);
+    	ExitButton.setVisible(false);
 //    	pause.setVisible(true);
-    	o1 = new CircleObstacle(pane, controller.currY);
-		o2 = new Cross(pane, controller.currY);
-		o3 = new Dash(pane, controller.currY);
-		s = new Star(pane, controller.currStarY);
-		controller.objects.add(o1);
-		controller.objects.add(o2);
-		controller.objects.add(o3);
-		controller.objects.add(s);
-		ball = new Ball(W/2, W/2, 8);
-		pane.getChildren().add(ball.getNode());		
-		createInitialBlocks();
-		
-		pane.setOnMousePressed(new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-//				if(event.getCode()==KeyCode.UP) {
-					controller.hitSpace=true;
-//				}
-			}
-		});
-		new java.util.Timer().schedule(
-              new java.util.TimerTask() {
-                  @Override
-                  public void run() {
-                	  controller.removeUnwantedObject();
-                  }
-              },1, 1);
-		
-		Timeline timeline = new Timeline(new KeyFrame(new Duration(1000), actionEvent->{
-			if(ball.getCenterY()<360) {
-				updateObjects();
-			}
-		}));
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.play();
-        
-        
-		
-        AnimationTimer timer1 = new AnimationTimer() {
-			double myTime = 0.0;
-			double gravity = 15;
-			@Override
-			public void handle(long arg0) {
-				StarText.setText("" + controller.stars);
-				double currY = ball.getCenterY();
-				velocityY += gravity*0.5*Math.pow(myTime, 2);
-				double deltaY = velocityY;
-				double newY = currY + deltaY;
-				
-				if(controller.hitSpace) {
-					velocityY =- 4;
-					myTime = .13;
-					/*if(ball.getCenterY()<420) {
-						updateObjects();
-					}*/
-					if(ball.getCenterY()<s.getLocationY()) {
-						controller.updateScore();
-						s.setMovedOffScreen(true);
-					}
-					controller.hitSpace = false;
-				}
-				ball.setCenterY(newY);
-				if(checkGameOver(ball)) {
-					this.stop();
-//					timeline.stop();
-					gameOver();
-				}
-				myTime += .001;
-			}
-		};
-		timer1.start();
+    	if(controller.currState==null) {
+    		o1 = new CircleObstacle(pane, currY);
+    		o2 = new Cross(pane, currY);
+    		o3 = new Dash(pane, currY);
+    		s = new Star(pane, currStarY);
+    		objects.add(o1);
+    		objects.add(o2);
+    		objects.add(o3);
+    		ball = new Ball(W/2, W/2, 8);
+//    		int currY = 300;
+//    		int currStarY = 250;
+    		pane.getChildren().add(ball.getNode());		
+    		createInitialBlocks();
+    		
+    		pane.setOnMousePressed(new EventHandler<MouseEvent>() {
+    			@Override
+    			public void handle(MouseEvent event) {
+//    				if(event.getCode()==KeyCode.UP) {
+    					controller.hitSpace=true;
+//    				}
+    			}
+    		});
+//    		new java.util.Timer().schedule(
+//                  new java.util.TimerTask() {
+//                      @Override
+//                      public void run() {
+//                    	  controller.removeUnwantedObject();
+//                      }
+//                  },1, 1);
+    		
+    		timeline1 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
+    			removeUnwantedObject(objects);
+    		}));
+    		timeline1.setCycleCount(Animation.INDEFINITE);
+    		timeline1.play();
+    		
+    		
+    		timeline2 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
+    			if(ball.getCenterY()<450) {
+    				updateObjects();
+    			}
+    		}));
+    		timeline2.setCycleCount(Animation.INDEFINITE);
+    		timeline2.play();
+    		
+    		timeline3 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
+    			if(ball.getCenterY()<s.getLocationY()+10) {
+//    				controller.updateScore();
+    				stars++;
+    				s.collect();
+    				currStarY = currStarY - 300;
+    				s.relocate(W/2-20, currStarY);
+    				s.place();
+    			}
+    		}));
+    		timeline3.setCycleCount(Animation.INDEFINITE);
+    		timeline3.play();
+            
+    		
+            timer1 = new AnimationTimer() {
+    			double myTime = 0.0;
+    			double gravity = 15;
+    			@Override
+    			public void handle(long arg0) {
+    				StarText.setText("" + stars);
+    				double currY = ball.getCenterY();
+    				velocityY += gravity*0.5*Math.pow(myTime, 2);
+    				double deltaY = velocityY;
+    				double newY = currY + deltaY;
+    				
+    				if(controller.hitSpace) {
+    					velocityY =- 4;
+    					myTime = .13;
+    					controller.hitSpace = false;
+    				}
+    				
+    				ball.setCenterY(newY);
+    				if(checkGameOver(ball)) {
+    					this.stop();
+    					timeline1.stop();
+    					timeline2.stop();
+    					timeline3.stop();
+    					gameOver();
+    				}
+    				myTime += .001;
+    			}
+    		};
+    		timer1.start();
+    	}
+    	else {
+    		o1 = new CircleObstacle(pane, (double)controller.currState.obstacleYArrayList.get(0));
+    		System.out.println("abc");
+    		o2 = new Cross(pane, (double)controller.currState.obstacleYArrayList.get(1));
+    		o3 = new Dash(pane, (double)controller.currState.obstacleYArrayList.get(2));
+    		s = new Star(pane, (double)controller.currState.starY);
+    		objects.add(o1);
+    		objects.add(o2);
+    		objects.add(o3);
+    		ball = new Ball(W/2, (double)controller.currState.ballY, 8);
+    		pane.getChildren().add(ball.getNode());		
+    		createInitialBlocks();
+    		
+    		pane.setOnMousePressed(new EventHandler<MouseEvent>() {
+    			@Override
+    			public void handle(MouseEvent event) {
+//    				if(event.getCode()==KeyCode.UP) {
+    					controller.hitSpace=true;
+//    				}
+    			}
+    		});
+//    		new java.util.Timer().schedule(
+//                  new java.util.TimerTask() {
+//                      @Override
+//                      public void run() {
+//                    	  controller.removeUnwantedObject();
+//                      }
+//                  },1, 1);
+    		
+    		timeline1 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
+    			removeUnwantedObject(objects);
+    		}));
+    		timeline1.setCycleCount(Animation.INDEFINITE);
+    		timeline1.play();
+    		
+    		
+    		timeline2 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
+    			if(ball.getCenterY()<450) {
+    				updateObjects();
+    			}
+    		}));
+    		timeline2.setCycleCount(Animation.INDEFINITE);
+    		timeline2.play();
+    		
+    		timeline3 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
+    			if(ball.getCenterY()<s.getLocationY()+10) {
+//    				controller.updateScore();
+    				stars++;
+    				s.collect();
+    				currStarY = currStarY - 300;
+    				s.relocate(W/2-20, currStarY);
+    				s.place();
+    			}
+    		}));
+    		timeline3.setCycleCount(Animation.INDEFINITE);
+    		timeline3.play();
+            
+    		
+            timer1 = new AnimationTimer() {
+    			double myTime = 0.0;
+    			double gravity = 15;
+    			@Override
+    			public void handle(long arg0) {
+    				StarText.setText("" + stars);
+    				double currY = ball.getCenterY();
+    				velocityY += gravity*0.5*Math.pow(myTime, 2);
+    				double deltaY = velocityY;
+    				double newY = currY + deltaY;
+    				
+    				if(controller.hitSpace) {
+    					velocityY =- 4;
+    					myTime = .13;
+    					controller.hitSpace = false;
+    				}
+    				
+    				ball.setCenterY(newY);
+    				if(checkGameOver(ball)) {
+    					this.stop();
+    					timeline1.stop();
+    					timeline2.stop();
+    					timeline3.stop();
+    					controller.currState=null;
+    					gameOver();
+    				}
+    				myTime += .001;
+    			}
+    		};
+    		timer1.start();
+    	}	
     }
     
     private void createInitialBlocks() {
-		o1.relocate(W/2-75, controller.currY);
-		controller.currY= controller.currY-300;
-		o2.relocate(W/2-40, controller.currY);
-		controller.currY= controller.currY-300;
-		o3.relocate(W/2, controller.currY);
-		controller.currY= controller.currY-300;
-		s.relocate(W/2-20, controller.currY);
-		controller.currY= controller.currY-300;
-
+		o1.relocate(W/2-75, currY);
+		currY= currY-300;
+		o2.relocate(W/2-40, currY);
+		currY = currY-300;
+		o3.relocate(W/2, currY);
+		currY = currY-300;
+		s.relocate(W/2-20, currStarY);
 	}
 	
 	private boolean checkGameOver(Ball ball) {
@@ -167,14 +321,14 @@ public class Classic{
 
 	private void updateObjects() {
 		
-		translate((Node)o1.getNode(), 0, 50, 1, 800, false);
-		translate((Node)o2.getNode(), 0, 50, 1, 800, false);
-		translate((Node)o3.getNode(), 0, 50, 1, 800, false);
-		translate((Node)s.getNode(), 0, 50, 1, 800, false);
+		translate((Node)o1.getNode(), 0, (450-ball.getCenterY()), 1, 1000, false);
+		translate((Node)o2.getNode(), 0, (450-ball.getCenterY()), 1, 1000, false);
+		translate((Node)o3.getNode(), 0, (450-ball.getCenterY()), 1, 1000, false);
+		translate((Node)s.getNode(), 0, (450-ball.getCenterY()), 1, 1000, false);
 		
 	}
 
-	void translate(Node node,int x,int y,int cyclecount,int timeMilli,boolean reverse){
+	void translate(Node node,double x,double y,int cyclecount,double timeMilli,boolean reverse){
         TranslateTransition translate = new TranslateTransition();
         {
             translate.setDuration(Duration.millis(timeMilli));
@@ -186,6 +340,57 @@ public class Classic{
         translate.setByY(y);
         translate.play();
 
+    }
+	
+	@FXML
+	private void PauseButton(Event event) {
+		try {
+			timer1.stop();
+			timeline1.pause();
+			timeline2.pause();
+			timeline3.pause();
+			pause.setVisible(false);
+			MuteButton.setVisible(true);
+//	    	UnmuteButton.setVisible(false);
+	    	ResumeButton.setVisible(true);
+	    	SaveButton.setVisible(true);
+	    	ExitButton.setVisible(true);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@FXML
+    void Resume(MouseEvent event) {
+    	System.out.println("resume called");
+    	pause.setVisible(true);
+		MuteButton.setVisible(false);
+//    	UnmuteButton.setVisible(false);
+    	ResumeButton.setVisible(false);
+    	SaveButton.setVisible(false);
+    	ExitButton.setVisible(false);
+    	timer1.start();
+    	timeline1.play();
+    	timeline2.play();
+    	timeline3.play();
+    }
+	
+	public void removeUnwantedObject(ArrayList<GameObject> objects) {
+    	for(GameObject i : objects) {
+    		if(i.getNode().getBoundsInParent().getCenterY()>720) {
+    			i.setMovedOffScreen(true);
+    		}
+    	}
+    	for(GameObject i : objects) {
+    		if(i.hasMovedOffScreen())
+    			relocateObject(i);
+    	}
+    }
+    
+    public void relocateObject(GameObject i) {
+    		currY = currY - 300;
+    		i.getNode().setLayoutY(currY);
+//    		currY = currY - 300;
+        	i.setMovedOffScreen(false);
     }
 }
 

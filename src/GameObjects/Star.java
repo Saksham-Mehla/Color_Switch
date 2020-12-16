@@ -13,9 +13,9 @@ public class Star implements GameObject{
 	protected Position pos;
 	protected boolean movedOffScreen = false;
 	protected ImageView img;
-	public Star(AnchorPane root, int y){
+	public Star(AnchorPane root, double y){
 		this.root = root;
-		pos = new Position(635, y);
+		pos = new Position(620, y);
 		img = new ImageView();
 		img.setImage(new Image(this.getClass().getResourceAsStream("star.jpg"), 50, 50, !movedOffScreen, !movedOffScreen));
 		img.setLayoutX(620);
@@ -24,7 +24,7 @@ public class Star implements GameObject{
 	}
 
 	public double getLocationY() {
-		return img.getLayoutY();
+		return img.getBoundsInParent().getCenterY();
 	}
 
 	public boolean hasMovedOffScreen() {
@@ -48,7 +48,7 @@ public class Star implements GameObject{
 
 	@Override
 	public double getLocationX() {
-		return 640;
+		return 620;
 	}
 
 	@Override
@@ -57,6 +57,14 @@ public class Star implements GameObject{
 
 	public void relocate(double x, double y) {
 		img.relocate(x, y);	
+	}
+
+	public void collect() {
+		img.setVisible(false);
+	}
+
+	public void place() {
+		img.setVisible(true);
 	}
 
 }

@@ -14,7 +14,7 @@ public class Ball implements GameObject{
 	private Color color;
 	private Circle circle;
 	
-	public Ball(int x, int y, int radius) {
+	public Ball(double x, double y, int radius) {
 		pos.setPos(x, y);
 		this.radius = radius;
 		circle = new Circle(pos.getx(), pos.gety(), this.radius);

@@ -21,7 +21,7 @@ public class Dash extends Obstacle{
 	private Line l4;
 	private boolean movedOffScreen;
 	
-	public Dash(AnchorPane root, int y) {
+	public Dash(AnchorPane root, double y) {
 		super(root);
 		pos = new Position(10, y);
 		translate1 = new TranslateTransition();

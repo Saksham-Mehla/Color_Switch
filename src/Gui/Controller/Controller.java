@@ -16,17 +16,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import GameObjects.CircleObstacle;
 import GameObjects.Obstacle;
 import GameObjects.Star;
+import GameObjects.State;
 
 public class Controller{
     private static final Controller ourInstance = new Controller();
-    public final ArrayList<GameObject> objects = new ArrayList<>();
     public ClassicMode gameMode = new ClassicMode();
-    public int score = 0;
-    public int stars = 0;
+    public State currState;
     public boolean hitSpace = false;
     public String type;
-    public int currY = 300;
-    public int currStarY = 80;
     private final Random random = new Random();
     public boolean inGame = false;  
 
@@ -35,35 +32,8 @@ public class Controller{
     public static Controller getInstance() {
         return ourInstance;
     }
-    
-    public void updateScore() {
-    	stars++;
-    }
 
     public GameObject getRandomObject(AnchorPane pane) {
         return gameMode.createObject(pane);
     }
-    public void removeUnwantedObject() {
-    	for(GameObject i : objects) {
-    		if(i.getNode().getBoundsInParent().getCenterY()>720) {
-    			i.setMovedOffScreen(true);
-    		}
-    	}
-    	for(GameObject i : objects) {
-    		if(i.hasMovedOffScreen())
-    			relocateObject(i);
-    	}
-    }
-    
-    public void relocateObject(GameObject i) {
-    		i.getNode().setLayoutY(currY);
-    		currY = currY - 300;
-        	i.setMovedOffScreen(false);
-    	
-    }
-
-//    void getObjects(AnchorPane pane) {
-//                  GameObject temp = getRandomObject(pane);
-//                  objects.add(temp);
-//    }
 }

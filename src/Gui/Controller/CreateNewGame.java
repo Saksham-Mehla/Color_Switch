@@ -2,6 +2,7 @@ package Gui.Controller;
 
 import java.io.IOException;
 
+import GameObjects.State;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,6 +15,7 @@ public class CreateNewGame {
     @FXML private Button PlayNew;
     @FXML private TextField NameField;
     @FXML private Button Back;
+    private State state;
 
     @FXML
     void BackButton(ActionEvent event) {
@@ -27,6 +29,7 @@ public class CreateNewGame {
     @FXML
     void PlayNewButton(ActionEvent event) {
     	try {
+    		controller.currState=null;
     		controller.sceneChanger.getClassic(event);
     	} catch (IOException e) {
     		e.printStackTrace();

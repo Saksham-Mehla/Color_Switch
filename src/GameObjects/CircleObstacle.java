@@ -23,7 +23,7 @@ public class CircleObstacle extends Obstacle{
 	private Shape a4;
 	private boolean movedOffScreen = false;
 	
-	public CircleObstacle(AnchorPane root, int y) {
+	public CircleObstacle(AnchorPane root, double y) {
 		super(root);
 		pos = new Position(640, y);
 		rotate1 = new RotateTransition();
