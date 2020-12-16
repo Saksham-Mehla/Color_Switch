@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ComboBox layoutX="69.0" layoutY="57.0" prefWidth="150.0" />
+      <TextField layoutX="69.0" layoutY="169.0" />
+      <Button layoutX="69.0" layoutY="249.0" mnemonicParsing="false" text="Button" />
+   </children>
+</AnchorPane>

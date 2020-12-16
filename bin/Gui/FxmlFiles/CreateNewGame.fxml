@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.Controller.CreateNewGame">
+   <children>
+      <Button fx:id="Back" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackButton" text="BACK">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Button>
+      <TextField fx:id="NameField" layoutX="278.0" layoutY="140.0" text="Name">
+         <effect>
+            <Glow />
+         </effect></TextField>
+      <Slider fx:id="DifficultySlider" blockIncrement="1.0" layoutX="278.0" layoutY="211.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: WHITE;">
+         <effect>
+            <Glow />
+         </effect></Slider>
+      <Button fx:id="PlayNew" layoutX="235.0" layoutY="335.0" mnemonicParsing="false" onAction="#PlayNewButton" text="PLAY">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Button>
+      <Text fill="WHITE" layoutX="104.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Text>
+      <Text fill="WHITE" layoutX="104.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty" wrappingWidth="134.0">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <effect>
+            <Glow />
+         </effect>
+      </Text>
+   </children>
+</AnchorPane>
