@@ -27,7 +27,7 @@ import Gui.Controller.Classic;
 public class SceneChanger {
     private static SceneChanger instance = new SceneChanger();
     Scene scene = null;
-    Stage stage = null;
+    public Stage stage = null;
     Parent root = null;
     
 //    public SceneChanger() {
@@ -37,52 +37,51 @@ public class SceneChanger {
         return instance;
     }
     
-    public void getClassic(ActionEvent event) throws IOException {
+    public void getClassic(Event event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("FxmlFiles/Classic.fxml"));
         scene = new Scene(root, 1280, 720);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
-//        Classic classic = FXMLLoader.<Classic>getController();
         stage.show();
     }
     public void getHomeMenu(Event event) throws IOException {
     	root = FXMLLoader.load(getClass().getResource("FxmlFiles/HomeMenu.fxml"));
-        scene = new Scene(root, 600, 400);
+        scene = new Scene(root, 1280, 720);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
-    public void getCreateNewMenu(ActionEvent event) throws IOException {
+    public void getCreateNewMenu(Event event) throws IOException {
     	root = FXMLLoader.load(getClass().getResource("FxmlFiles/CreateNewGame.fxml"));
-        scene = new Scene(root, 600, 400);
+        scene = new Scene(root, 1280, 720);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
-    public void getLoadGameMenu(ActionEvent event) throws IOException {
+    public void getLoadGameMenu(Event event) throws IOException {
     	root = FXMLLoader.load(getClass().getResource("FxmlFiles/SelectSavedGame.fxml"));
-        scene = new Scene(root, 600, 400);
+        scene = new Scene(root, 1280, 720);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
-    public void getonExit(ActionEvent event) throws Exception{
+    public void getonExit(Event event) throws Exception{
 		root = FXMLLoader.load(getClass().getResource("FxmlFiles/OnExit.fxml"));
-		Scene scene = new Scene(root, 600, 400);
+		Scene scene = new Scene(root, 1280, 720);
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
 	}
-    public void getGameOver(ActionEvent event) throws Exception{
+    public void getGameOver(Event event) throws Exception{
 		root = FXMLLoader.load(getClass().getResource("FxmlFiles/GameOver.fxml"));
-		Scene scene = new Scene(root, 600, 400);
+		Scene scene = new Scene(root, 1280, 720);
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
 	}
     public void getPauseMenu(Event event) throws Exception{
 		root = FXMLLoader.load(getClass().getResource("FxmlFiles/PauseMenu.fxml"));
-		Scene scene = new Scene(root, 600, 400);
+		Scene scene = new Scene(root, 1280, 720);
 		stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();

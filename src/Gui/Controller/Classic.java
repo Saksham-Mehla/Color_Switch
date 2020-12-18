@@ -1,57 +1,46 @@
 package Gui.Controller;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import GameObjects.Ball;
 import GameObjects.CircleObstacle;
+import GameObjects.ColorChanger;
 import GameObjects.Cross;
 import GameObjects.Dash;
 import GameObjects.Obstacle;
 import GameObjects.Star;
-import GameObjects.State;
 import Interfaces.GameObject;
 import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Classic {
 	private Controller controller = Controller.getInstance();
-//	public static State currState = null;
     @FXML private Text StarText;
     @FXML private Text ScoreText;
     @FXML private AnchorPane pane;
     public ArrayList<GameObject> objects = new ArrayList<>();
     public int currY = 300;
-    public int currStarY = 250;
+    public int currStarY = 230;
+    public int currCCY = 80;
 
     private Obstacle o1;
 	private Obstacle o2;
 	private Obstacle o3;
 	private Star s;
 	private Ball ball;
-	private int H = 720;
+	private ColorChanger cc; 
 	private int W = 1280;
 	double velocityY = 0;
 	int stars;
@@ -63,6 +52,7 @@ public class Classic {
 	Timeline timeline1;
 	Timeline timeline2;
 	Timeline timeline3;
+	Timeline timeline4;
 	@FXML private ImageView pause;
 	@FXML
     private ImageView ExitButton;
@@ -83,8 +73,8 @@ public class Classic {
     	double ballY = ball.getCenterY();
     	double starY = s.getLocationY();
     	int score = stars;
-//    	Color ballColor = ball.getColor();
-    	GameObjects.State state = new GameObjects.State(obstacleY, starY, ballY, score);
+    	double ccY = cc.getLocationY();
+    	GameObjects.State state = new GameObjects.State(obstacleY, starY, ballY, score, ccY);
     	state.addState();
     	state.serialize();
     	controller.sceneChanger.getHomeMenu(event);
@@ -98,52 +88,63 @@ public class Classic {
 		}
     }
     @FXML
-    void Mute(ActionEvent event) {
-
+    void Mute(MouseEvent event) {
+    	MuteButton.setVisible(false);
+    	UnmuteButton.setVisible(true);
+    	controller.soundon = false;
     }
     @FXML
-    void unmute(ActionEvent event) {
-    	
+    void unmute(MouseEvent event) {
+    	MuteButton.setVisible(true);
+    	UnmuteButton.setVisible(false);
+    	controller.soundon = false;
     }
-	
+
+    @FXML
+    private ImageView Revive;
+
+    @FXML
+    private ImageView Close;
+
+    @FXML private AnchorPane GameOverPane;
+
+
+    @FXML
+    private Text StarTextGO;
+
+    @FXML
+    void Close(MouseEvent event) throws IOException {
+    	controller.sceneChanger.getHomeMenu(event);
+    }
+
     @FXML
     public void initialize() {
     	StarText.setVisible(true);
     	MuteButton.setVisible(false);
+    	GameOverPane.setVisible(false);
     	UnmuteButton.setVisible(false);
     	ResumeButton.setVisible(false);
     	SaveButton.setVisible(false);
     	ExitButton.setVisible(false);
-//    	pause.setVisible(true);
     	if(controller.currState==null) {
     		o1 = new CircleObstacle(pane, currY);
     		o2 = new Cross(pane, currY);
     		o3 = new Dash(pane, currY);
     		s = new Star(pane, currStarY);
+    		cc = new ColorChanger(pane, currCCY);
     		objects.add(o1);
     		objects.add(o2);
     		objects.add(o3);
     		ball = new Ball(W/2, W/2, 8);
-//    		int currY = 300;
-//    		int currStarY = 250;
     		pane.getChildren().add(ball.getNode());		
     		createInitialBlocks();
     		
     		pane.setOnMousePressed(new EventHandler<MouseEvent>() {
     			@Override
     			public void handle(MouseEvent event) {
-//    				if(event.getCode()==KeyCode.UP) {
     					controller.hitSpace=true;
-//    				}
     			}
     		});
-//    		new java.util.Timer().schedule(
-//                  new java.util.TimerTask() {
-//                      @Override
-//                      public void run() {
-//                    	  controller.removeUnwantedObject();
-//                      }
-//                  },1, 1);
     		
     		timeline1 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
     			removeUnwantedObject(objects);
@@ -152,7 +153,7 @@ public class Classic {
     		timeline1.play();
     		
     		
-    		timeline2 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
+    		timeline2 = new Timeline(new KeyFrame(new Duration(200), actionEvent->{
     			if(ball.getCenterY()<450) {
     				updateObjects();
     			}
@@ -172,6 +173,18 @@ public class Classic {
     		}));
     		timeline3.setCycleCount(Animation.INDEFINITE);
     		timeline3.play();
+    		
+    		timeline4 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
+    			if(ball.getCenterY()<cc.getLocationY()+10) {
+    				cc.collect();
+    				currCCY = currCCY - 300;
+    				cc.relocate(W/2-20, currCCY);
+    				ball.changeColor();
+    				cc.place();
+    			}
+    		}));
+    		timeline4.setCycleCount(Animation.INDEFINITE);
+    		timeline4.play();
             
     		
             timer1 = new AnimationTimer() {
@@ -197,6 +210,7 @@ public class Classic {
     					timeline1.stop();
     					timeline2.stop();
     					timeline3.stop();
+    					timeline4.stop();
     					gameOver();
     				}
     				myTime += .001;
@@ -210,10 +224,13 @@ public class Classic {
     		o2 = new Cross(pane, (double)controller.currState.obstacleYArrayList.get(1));
     		o3 = new Dash(pane, (double)controller.currState.obstacleYArrayList.get(2));
     		s = new Star(pane, (double)controller.currState.starY);
+    		cc = new ColorChanger(pane, (double)controller.currState.colorChangerY);
     		objects.add(o1);
     		objects.add(o2);
     		objects.add(o3);
+    		stars = controller.currState.score;
     		ball = new Ball(W/2, (double)controller.currState.ballY, 8);
+    		ball.getNode().setVisible(true);
     		pane.getChildren().add(ball.getNode());		
     		createInitialBlocks();
     		
@@ -260,6 +277,18 @@ public class Classic {
     		}));
     		timeline3.setCycleCount(Animation.INDEFINITE);
     		timeline3.play();
+    		
+    		timeline4 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
+    			if(ball.getCenterY()<cc.getLocationY()+10) {
+    				cc.collect();
+    				currCCY = currCCY - 300;
+    				cc.relocate(W/2-20, currCCY);
+    				ball.changeColor();
+    				cc.place();
+    			}
+    		}));
+    		timeline4.setCycleCount(Animation.INDEFINITE);
+    		timeline4.play();
             
     		
             timer1 = new AnimationTimer() {
@@ -281,11 +310,12 @@ public class Classic {
     				
     				ball.setCenterY(newY);
     				if(checkGameOver(ball)) {
-    					this.stop();
-    					timeline1.stop();
     					timeline2.stop();
+    					timeline1.stop();
     					timeline3.stop();
-    					controller.currState=null;
+    					timeline4.stop();
+    					this.stop();
+//    					controller.currState=null;
     					gameOver();
     				}
     				myTime += .001;
@@ -313,10 +343,21 @@ public class Classic {
 	}
 	
 	private void gameOver() {
-		Text gameOver = new Text(W/2-50, H/2, "Game Over!");
-		gameOver.setFill(Color.RED);
-		gameOver.setFont(Font.font("Verdana", 20));
-		pane.getChildren().add(gameOver);
+		timeline1.pause();
+		timeline2.pause();
+		timeline3.pause();
+		timer1.stop();
+		o1.getNode().setVisible(false);
+    	o2.getNode().setVisible(false);
+    	o3.getNode().setVisible(false);
+    	s.getNode().setVisible(false);
+    	cc.getNode().setVisible(false);
+    	ball.getNode().setVisible(false);
+		GameOverPane.setVisible(true);
+		StarTextGO.setText("Stars: " + stars);
+		if(stars<3) {
+			Revive.setVisible(false);
+		}	
 	}
 
 	private void updateObjects() {
@@ -325,6 +366,8 @@ public class Classic {
 		translate((Node)o2.getNode(), 0, (450-ball.getCenterY()), 1, 1000, false);
 		translate((Node)o3.getNode(), 0, (450-ball.getCenterY()), 1, 1000, false);
 		translate((Node)s.getNode(), 0, (450-ball.getCenterY()), 1, 1000, false);
+		translate((Node)cc.getNode(), 0, (450-ball.getCenterY()), 1, 1000, false);
+		
 		
 	}
 
@@ -345,16 +388,31 @@ public class Classic {
 	@FXML
 	private void PauseButton(Event event) {
 		try {
-			timer1.stop();
 			timeline1.pause();
 			timeline2.pause();
 			timeline3.pause();
+			timer1.stop();
 			pause.setVisible(false);
 			MuteButton.setVisible(true);
 //	    	UnmuteButton.setVisible(false);
 	    	ResumeButton.setVisible(true);
 	    	SaveButton.setVisible(true);
 	    	ExitButton.setVisible(true);
+	    	if(controller.soundon) {
+	    		MuteButton.setVisible(true);
+		    	UnmuteButton.setVisible(false);
+	    	}
+	    	else {
+	    		MuteButton.setVisible(false);
+		    	UnmuteButton.setVisible(true);
+	    	}
+	    	
+	    	o1.getNode().setVisible(false);
+	    	o2.getNode().setVisible(false);
+	    	o3.getNode().setVisible(false);
+	    	s.getNode().setVisible(false);
+	    	cc.getNode().setVisible(false);
+	    	ball.getNode().setVisible(false);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -368,10 +426,26 @@ public class Classic {
     	ResumeButton.setVisible(false);
     	SaveButton.setVisible(false);
     	ExitButton.setVisible(false);
+    	MuteButton.setVisible(false);
+	    UnmuteButton.setVisible(false);
+    	o1.getNode().setVisible(true);
+    	o2.getNode().setVisible(true);
+    	o3.getNode().setVisible(true);
+    	s.getNode().setVisible(true);
+    	cc.getNode().setVisible(true);
+    	ball.getNode().setVisible(false);
     	timer1.start();
     	timeline1.play();
     	timeline2.play();
     	timeline3.play();
+    	timeline4.play();
+    }
+	
+	@FXML
+    void Revive(MouseEvent event) {
+			stars = stars - 3;
+	    	GameOverPane.setVisible(false);
+	    	Resume(event);
     }
 	
 	public void removeUnwantedObject(ArrayList<GameObject> objects) {
@@ -389,7 +463,6 @@ public class Classic {
     public void relocateObject(GameObject i) {
     		currY = currY - 300;
     		i.getNode().setLayoutY(currY);
-//    		currY = currY - 300;
         	i.setMovedOffScreen(false);
     }
 }

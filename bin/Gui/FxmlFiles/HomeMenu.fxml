@@ -9,24 +9,81 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="home" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.77" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.Controller.MainMenu">
+<AnchorPane id="home" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.77" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.Controller.MainMenu">
    <children>
-      <ImageView fitHeight="450.0" fitWidth="596.0" layoutX="200.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="4.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="450.0" fitWidth="596.0" layoutX="36.0" layoutY="185.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@icon.png" />
+            <Image url="@Title.jpeg" />
          </image>
       </ImageView>
-      <Button fx:id="NewGameButton" layoutX="14.0" layoutY="341.0" mnemonicParsing="false" onAction="#NewGameButton" text="New Game">
-         <font>
-            <Font name="Gang of Three" size="24.0" />
-         </font>
+      <ImageView fx:id="NewGameButton" fitHeight="271.0" fitWidth="334.0" layoutX="640.0" layoutY="225.0" onMouseClicked="#NewGameButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@NewGame.jpeg" />
+         </image>
          <effect>
             <Glow />
-         </effect></Button>
-      <Button fx:id="LoadGameButton" layoutX="433.0" layoutY="341.0" mnemonicParsing="false" onAction="#LoadGameButton" text="Load Game">
+         </effect>
+      </ImageView>
+      <ImageView fx:id="speakerOff" fitHeight="85.0" fitWidth="87.0" layoutX="1179.0" layoutY="621.0" onMouseClicked="#speakerOff" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Speaker.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="SoundOn" fitHeight="85.0" fitWidth="87.0" layoutX="1179.0" layoutY="621.0" onMouseClicked="#SoundOn" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@SpeakerOff.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="LoadGameButton" fitHeight="150.0" fitWidth="200.0" layoutX="1014.0" layoutY="280.0" onMouseClicked="#LoadGameButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@load.jpeg" />
+         </image>
+         <effect>
+            <Glow />
+         </effect>
+      </ImageView>
+      <ImageView fx:id="Instructions" fitHeight="180.0" fitWidth="300.0" layoutX="964.0" layoutY="397.0" onMouseClicked="#InstructionsButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Instructions.jpeg" />
+         </image>
+         <effect>
+            <Glow />
+         </effect>
+      </ImageView>
+      <AnchorPane fx:id="InstructionsPane" layoutX="332.0" layoutY="160.0" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: LIGHTGREEN;">
+         <children>
+            <ImageView fx:id="InstructionsBack" fitHeight="50.0" fitWidth="64.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#InstructionsBack" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@BackButton.png" />
+               </image>
+            </ImageView>
+            <Text fill="#182451" fontSmoothingType="LCD" layoutX="47.0" layoutY="105.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Take this game seriously. It’ll be fun.Keep pressing the left click on your mouse pad hard if you wanna beat the gravity.You can only pass through structures of the same color or you shall wait flying still in the air unless the path clears out or the same colored structure appears in front.Grab a star to revive when things go wrong.Keep beating the gravity to score high.Don’t forget to save before you exit." textAlignment="JUSTIFY" wrappingWidth="505.6708984375">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+         <effect>
+            <Lighting>
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </AnchorPane>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="677.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@WhatsApp%20Image%202020-12-17%20at%201.26.39%20PM.jpeg" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" fontSmoothingType="LCD" layoutX="179.0" layoutY="700.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Saksham Mehla &amp; Rishit Saharan">
          <font>
-            <Font name="Gang of Three" size="24.0" />
-         </font></Button>
+            <Font name="System Bold" size="22.0" />
+         </font>
+      </Text>
    </children>
    <effect>
       <ColorAdjust contrast="1.0" />

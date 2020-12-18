@@ -1,5 +1,4 @@
 package GameObjects;
-import javafx.scene.paint.Color;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,8 +12,8 @@ public class State implements Serializable{
 	public static ArrayList<State> stateList;
 	public double starY = 0;
 	public int score = 0;
-//	private Color color;
 	public double ballY = 640;
+	public double colorChangerY = 0;
 	public State() {
 		try {
 			stateList = deserialize();
@@ -24,13 +23,14 @@ public class State implements Serializable{
 			e.printStackTrace();
 		}
 	}
-	public State(ArrayList<Double> ObstacleY, double StarY, double BallY, int score) {
+	public State(ArrayList<Double> ObstacleY, double StarY, double BallY, int score, double colorChangerY) {
 		obstacleYArrayList = ObstacleY;
 		starY=StarY;
 //		this.color=color;
 		ballY=BallY;
 //		stateList.add(this);
 		this.score=score;
+		this.colorChangerY = colorChangerY;
 		try {
 			stateList = deserialize();
 		} catch (ClassNotFoundException e) {
