@@ -1,0 +1,15 @@
+# Color Switch
+
+Created by: [Saksham Mehla](https://github.com/Saksham-Mehla) and Rishit Saharan
+
+Color Switch is a replica of the famous mobile gaming app [Color Switch](https://play.google.com/store/apps/details?id=com.colorswitch.switch2) by Color Switch Phoenix LLC. 
+The objective of the game is to move a coloured ball through the obstacles of matching colors while collecting stars to smash High Scores.
+
+This was a project in the Advanced Programming(CSE201) course at IIIT-Delhi.
+
+The game is implemented using Java and JavaFX. Clone this repository using the command `git clone https://github.com/Saksham-Mehla/Color_Switch` to play the game.
+Run the application in any suitable IDE with JavaFX.
+
+Few Screenshots ...
+
+
