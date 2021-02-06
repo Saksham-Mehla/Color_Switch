@@ -38,12 +38,12 @@ public class Ball implements GameObject{
 	public void changeColor() {
 		int x = controller.random.nextInt(4);
 		Color c;
-<<<<<<< HEAD
+
 		if(x==0) c = Color.MEDIUMPURPLE;
 		else if(x==1) c = Color.YELLOW;
 		else if(x==2) c = Color.MAGENTA;
 		else c = Color.CYAN;
-=======
+
 		if(x==0)
 			c = Color.MEDIUMPURPLE;
 		else if(x==1)
@@ -53,7 +53,7 @@ public class Ball implements GameObject{
 		else if(x==4)
 			c = Color.MAGENTA;
 		else c = Color.WHITE;
->>>>>>> 8d27990bd3dfd5fd3de0b69d40fbfa6b056e54ac
+
 		circle.setFill(c);
 	}
 	
