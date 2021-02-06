@@ -8,17 +8,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 public class CreateNewGame {
 	final Controller controller = Controller.getInstance();
     @FXML private Slider DifficultySlider;
-    @FXML private Button PlayNew;
+    @FXML private ImageView PlayNew;
     @FXML private TextField NameField;
-    @FXML private Button Back;
+    @FXML private ImageView Back;
     private State state;
 
     @FXML
-    void BackButton(ActionEvent event) {
+    void BackButton(MouseEvent event) {
     	try {
     		controller.sceneChanger.getHomeMenu(event);
     	} catch (IOException e) {
@@ -27,9 +29,10 @@ public class CreateNewGame {
     }
 
     @FXML
-    void PlayNewButton(ActionEvent event) {
+    void PlayNewButton(MouseEvent event) {
     	try {
     		controller.currState=null;
+    		controller.currName = NameField.getText();
     		controller.sceneChanger.getClassic(event);
     	} catch (IOException e) {
     		e.printStackTrace();

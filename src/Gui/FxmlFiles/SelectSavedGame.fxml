@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -7,35 +9,37 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.Controller.LoadGame">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.Controller.LoadGame">
    <children>
-      <ListView layoutX="200.0" layoutY="73.0" prefHeight="200.0" prefWidth="200.0">
-         <effect>
-            <Glow />
-         </effect></ListView>
-      <Text fill="WHITE" layoutX="234.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Game">
+      <Text fill="#ffce09" layoutX="509.0" layoutY="151.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Game">
          <font>
-            <Font size="24.0" />
+            <Font size="48.0" />
          </font>
          <effect>
             <Glow />
          </effect>
       </Text>
-      <Button fx:id="LoadButton" layoutX="258.0" layoutY="318.0" mnemonicParsing="false" onAction="#LoadGameClassic" text="Load">
-         <font>
-            <Font size="24.0" />
-         </font>
+      <ImageView fx:id="LoadButton" fitHeight="150.0" fitWidth="200.0" layoutX="477.0" layoutY="501.0" onMouseClicked="#LoadGameClassic" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@load.jpeg" />
+         </image>
          <effect>
             <Glow />
          </effect>
-      </Button>
-      <Button fx:id="BackButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackToHome" text="BACK">
-         <font>
-            <Font size="14.0" />
-         </font>
+      </ImageView>
+      <ImageView fx:id="BackButton" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#BackToHome" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Back.jpeg" />
+         </image>
+      </ImageView>
+      <ListView fx:id="GamesList" editable="true" layoutX="462.0" layoutY="173.0" prefHeight="287.0" prefWidth="356.0" style="-fx-border-color: WHITE; -fx-background-color: LIGHTYELLOW;" />
+      <ImageView fitHeight="117.0" fitWidth="147.0" layoutX="677.0" layoutY="501.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Save.jpeg" />
+         </image>
          <effect>
             <Glow />
          </effect>
-      </Button>
+      </ImageView>
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package GameObjects;
 
+import Gui.Controller.Controller;
 import Interfaces.GameObject;
 import application.Position;
 import javafx.geometry.Bounds;
@@ -9,6 +10,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 public class Ball implements GameObject{
+	final Controller controller = Controller.getInstance();
 	private int radius= 7;
 	private Position pos = new Position(640, 640);
 	private Color color;
@@ -33,8 +35,13 @@ public class Ball implements GameObject{
 		return pos;
 	}
 	
-	public void changeColor(Color c) {
-		color = c;
+	public void changeColor() {
+		int x = controller.random.nextInt(4);
+		Color c;
+		if(x==0) c = Color.MEDIUMPURPLE;
+		else if(x==1) c = Color.YELLOW;
+		else if(x==2) c = Color.MAGENTA;
+		else c = Color.CYAN;
 		circle.setFill(c);
 	}
 	

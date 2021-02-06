@@ -11,11 +11,12 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("FxmlFiles/HomeMenu.fxml"));
         primaryStage.setTitle("Color Switch");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 1280, 720));
         primaryStage.show();
     }
 
 
+    
     public static void main(String[] args) {
         launch(args);
     }

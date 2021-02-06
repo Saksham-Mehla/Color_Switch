@@ -11,47 +11,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.Controller.CreateNewGame">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Gui.Controller.CreateNewGame">
    <children>
-      <Button fx:id="Back" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#BackButton" text="BACK">
-         <font>
-            <Font size="24.0" />
-         </font>
-         <effect>
-            <Glow />
-         </effect>
-      </Button>
-      <TextField fx:id="NameField" layoutX="278.0" layoutY="140.0" text="Name">
+      <TextField fx:id="NameField" layoutX="493.0" layoutY="287.0" prefHeight="51.0" prefWidth="364.0" text="Name" AnchorPane.leftAnchor="450.0" AnchorPane.rightAnchor="450.0">
          <effect>
             <Glow />
          </effect></TextField>
-      <Slider fx:id="DifficultySlider" blockIncrement="1.0" layoutX="278.0" layoutY="211.0" majorTickUnit="1.0" max="2.0" minorTickCount="0" showTickLabels="true" showTickMarks="true" snapToTicks="true" style="-fx-background-color: WHITE;">
-         <effect>
-            <Glow />
-         </effect></Slider>
-      <Button fx:id="PlayNew" layoutX="235.0" layoutY="335.0" mnemonicParsing="false" onAction="#PlayNewButton" text="PLAY">
+      <Text fill="WHITE" layoutX="540.0" layoutY="252.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" AnchorPane.leftAnchor="540.0" AnchorPane.rightAnchor="540.0">
          <font>
-            <Font size="24.0" />
-         </font>
-         <effect>
-            <Glow />
-         </effect>
-      </Button>
-      <Text fill="WHITE" layoutX="104.0" layoutY="165.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username">
-         <font>
-            <Font size="24.0" />
+            <Font size="45.0" />
          </font>
          <effect>
             <Glow />
          </effect>
       </Text>
-      <Text fill="WHITE" layoutX="104.0" layoutY="227.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Difficulty" wrappingWidth="134.0">
-         <font>
-            <Font size="24.0" />
-         </font>
+      <ImageView fx:id="Back" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="14.0" onMouseClicked="#BackButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@Back.jpeg" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="PlayNew" fitHeight="156.0" fitWidth="351.0" layoutX="562.0" layoutY="419.0" onMouseClicked="#PlayNewButton" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@PlayButton.jpeg" />
+         </image>
          <effect>
-            <Glow />
+            <Glow level="0.0" />
          </effect>
-      </Text>
+      </ImageView>
    </children>
 </AnchorPane>

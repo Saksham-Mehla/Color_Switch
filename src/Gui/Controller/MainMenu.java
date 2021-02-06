@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Font;
 import javafx.util.Duration;
 import java.io.IOException;
@@ -14,100 +15,85 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainMenu {
-
-//    private boolean selected = false;
-
-//    @FXML private ImageView new_game_img;
-//    @FXML private ImageView load_game_img;
-    final Controller controller = Controller.getInstance();
-    @FXML private Button NewGameButton;
-    @FXML private Button LoadGameButton;
-    
-    @FXML
-    void NewGameButton(ActionEvent event) {
-//    	controller.settings.getSounds().getMainTheme().stop();
-//    	controller.playSound("press", 0);
-    	try {
-    		controller.sceneChanger.getCreateNewMenu(event);
-    	} catch (IOException e) {
-    		e.printStackTrace();
-    	}
-    }
-
-    @FXML
-    void LoadGameButton(ActionEvent event) {
-//      controller.settings.getSounds().getMainTheme().stop();
-//      controller.playSound("press", 0);
-      try {
-   	   controller.sceneChanger.getLoadGameMenu(event);
-      } catch (IOException e) {
-          e.printStackTrace();
-      }
-    }
-
-//    @Override
-//    public void initialize(URL url, ResourceBundle rb) {
-//        NewGameButton.setFont(Font.loadFont(this.getClass().getResourceAsStream("/fonts/GangOfThree.ttf"), 16));
-//        LoadGameButton.setFont(Font.loadFont(this.getClass().getResourceAsStream("/fonts/GangOfThree.ttf"), 16));
-//
-//
-//        new_game_img.setOnMouseDragged((event) -> {
-//    	   if(!selected) {
-//    		   selected = true;
-//    		   new_game_img.setVisible(false);
-//               controller.settings.getSounds().getMainTheme().stop();
-//               controller.playSound("slice", 0);
-//                    try {
-//                        controller.sceneChanger.getCreateNewMenu(event);
-//                    } catch (IOException e) {
-//						e.printStackTrace();
-//					}
-//    	   }
-//       });
-//
-//        load_game_img.setOnMouseDragged((event) -> {
-//    	   if(!selected) {
-//    		   selected = true;
-//    		   load_game_img.setVisible(false);
-//               controller.settings.getSounds().getMainTheme().stop();
-//               controller.playSound("slice", 0);
-//                   try {
-//                       controller.sceneChanger.getLoadGameMenu(event);
-//    			   } catch (IOException e) {
-//    				   e.printStackTrace();
-//    			   }
-//    	   }
-//       });
-//       NewGameButton.setOnMouseClicked(event -> {
-//            controller.settings.getSounds().getMainTheme().stop();
-//            controller.playSound("press", 0);
-//            try {
-//         	   controller.sceneChanger.getCreateNewMenu(event);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        });
-//       LoadGameButton.setOnMouseClicked(event -> {
-//           controller.settings.getSounds().getMainTheme().stop();
-//           controller.playSound("press", 0);
-//           try {
-//        	   controller.sceneChanger.getLoadGameMenu(event);
-//           } catch (IOException e) {
-//               e.printStackTrace();
-//           }
-//       });
-//    }
-
-//    public void loadButton(){
-//        controller.playSound("press", 0);
-//        TranslateTransition ngb=new TranslateTransition(new Duration(1000),new_game_img);
-//        TranslateTransition lgb= new TranslateTransition(new Duration(1000),load_game_img);
-//        ngb.setByX(270);
-//        lgb.setByX(180);
-//        lgb.play();
-//        ngb.play();
-//        ngb.setOnFinished(event -> LoadGameButton.setDisable(true));
-//    }
+	 final Controller controller = Controller.getInstance();
+	 @FXML private AnchorPane InstructionsPane;
 
 
+	    @FXML
+	    private ImageView Instructions;
+
+	    @FXML
+	    private ImageView speakerOff;
+
+	    @FXML
+	    private ImageView LoadGameButton;
+
+	    @FXML
+	    private ImageView SoundOn;
+
+	    @FXML
+	    private ImageView NewGameButton;
+
+	    @FXML
+	    private ImageView InstructionsBack;
+
+
+	    @FXML
+	    void speakerOff(MouseEvent event) {
+	    	speakerOff.setVisible(false);
+	    	SoundOn.setVisible(true);
+	    	controller.soundon = false;
+	    }
+
+	    @FXML
+	    void SoundOn(MouseEvent event) {
+	    	speakerOff.setVisible(true);
+	    	SoundOn.setVisible(false);
+	    	controller.soundon = false;
+	    }
+
+	    
+
+	    @FXML
+	    void InstructionsButton(MouseEvent event) {
+	    	
+	    	InstructionsPane.setVisible(true);
+	    }
+
+	    @FXML
+	    void InstructionsBack(MouseEvent event) {
+	    	InstructionsPane.setVisible(false);
+	    }
+
+
+ 
+ @FXML
+ void NewGameButton(MouseEvent event) {
+// 	controller.settings.getSounds().getMainTheme().stop();
+// 	controller.playSound("press", 0);
+ 	try {
+ 		controller.sceneChanger.getCreateNewMenu(event);
+ 	} catch (IOException e) {
+ 		e.printStackTrace();
+ 	}
+ }
+
+ @FXML
+ void LoadGameButton(MouseEvent event) {
+//   controller.settings.getSounds().getMainTheme().stop();
+//   controller.playSound("press", 0);
+   try {
+	   controller.sceneChanger.getLoadGameMenu(event);
+   } catch (IOException e) {
+       e.printStackTrace();
+   }
+ }
+@FXML
+void initialize() {
+	InstructionsPane.setVisible(false);
+	speakerOff.setVisible(true);
+	SoundOn.setVisible(false);
+ 
+
+}
 }
