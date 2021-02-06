@@ -11,5 +11,13 @@ The game is implemented using Java and JavaFX. Clone this repository using the c
 Run the application in any suitable IDE with JavaFX.
 
 Few Screenshots ...
+![alt text](https://github.com/Saksham-Mehla/Color_Switch/blob/main/Screenshots/ss1.png)
 
+![alt text](https://github.com/Saksham-Mehla/Color_Switch/blob/main/Screenshots/ss2.png)
+
+![alt text](https://github.com/Saksham-Mehla/Color_Switch/blob/main/Screenshots/ss3.png)
+
+![alt text](https://github.com/Saksham-Mehla/Color_Switch/blob/main/Screenshots/ss4.png)
+
+![alt text](https://github.com/Saksham-Mehla/Color_Switch/blob/main/Screenshots/ss5.png)
 
