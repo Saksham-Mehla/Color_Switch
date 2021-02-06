@@ -228,7 +228,9 @@ public class Classic {
     		objects.add(o1);
     		objects.add(o2);
     		objects.add(o3);
+    		stars = controller.currState.score;
     		ball = new Ball(W/2, (double)controller.currState.ballY, 8);
+    		ball.getNode().setVisible(true);
     		pane.getChildren().add(ball.getNode());		
     		createInitialBlocks();
     		
@@ -278,8 +280,12 @@ public class Classic {
     		
     		timeline4 = new Timeline(new KeyFrame(new Duration(100), actionEvent->{
     			if(ball.getCenterY()<cc.getLocationY()+10) {
+<<<<<<< HEAD
     				stars++;
     				s.collect();
+=======
+    				cc.collect();
+>>>>>>> 8d27990bd3dfd5fd3de0b69d40fbfa6b056e54ac
     				currCCY = currCCY - 300;
     				cc.relocate(W/2-20, currCCY);
     				ball.changeColor();
@@ -442,7 +448,10 @@ public class Classic {
 	
 	@FXML
     void Revive(MouseEvent event) {
+<<<<<<< HEAD
 		
+=======
+>>>>>>> 8d27990bd3dfd5fd3de0b69d40fbfa6b056e54ac
 			stars = stars - 3;
 	    	GameOverPane.setVisible(false);
 	    	Resume(event);
